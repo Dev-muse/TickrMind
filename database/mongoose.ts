@@ -22,7 +22,7 @@ if (!cached) {
 //func ensures we connect to mongodb database efficiently
 //func stores connection in global cache so we don't have to constantly make new connection
 
-const connectToDatabase = async () => {
+export const connectToDatabase = async () => {
   if (!MONGODB_URI) throw new Error("MONGODB_URI must be set in .env");
 
   // if connection exists returns immediate
@@ -42,4 +42,7 @@ const connectToDatabase = async () => {
   }
 
   console.log(`Connected to database ${process.env.NODE_ENV} : ${MONGODB_URI}`)
+
+  
+  return cached.conn
 };

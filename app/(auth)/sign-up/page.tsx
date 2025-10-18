@@ -4,15 +4,20 @@ import FooterLinks from "@/components/forms/FooterLinks";
 import InputField from "@/components/forms/InputField";
 import SelectField from "@/components/forms/SelectField";
 import { Button } from "@/components/ui/button";
+import { signUpWithEmail } from "@/lib/actions/auth.actions";
 import {
   INVESTMENT_GOALS,
   PREFERRED_INDUSTRIES,
   RISK_TOLERANCE_OPTIONS,
 } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const SignUp = () => {
+      const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -33,9 +38,20 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     try {
+      // signUpWithEmail server action
+
+      const response = await signUpWithEmail(data)
+      if(response.success){
+        router.push('/')
+      }
+      
       console.log("form data", data);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log('Sign up failed',e);
+     toast.error('Sign up failed',{
+       description: e instanceof Error ? e.message : 'failed to create account'
+     
+     })
     }
   };
   return (
@@ -61,7 +77,7 @@ const SignUp = () => {
           error={errors.email}
           validation={{
             required: "Email is required",
-            pattern: /^\w+@\w+\.\w+$/,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             message: "Email address is required",
           }}
         />
@@ -125,7 +141,11 @@ const SignUp = () => {
             : "Start Your Investing Journey"}
         </Button>
       </form>
-      <FooterLinks text="Already have an account? "href='/sign-in' linkText="Sign In" />
+      <FooterLinks
+        text="Already have an account? "
+        href="/sign-in"
+        linkText="Sign In"
+      />
     </>
   );
 };

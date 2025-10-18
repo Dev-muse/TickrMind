@@ -4,7 +4,7 @@ import React from "react";
 import NavItems from "./NavItems";
 import MenuDropdown from "./MenuDropdown";
 
-const Header = () => {
+const Header = ({user}:{user:User}) => {
   return (
     <header className="sticky top-0 header">
       <div className="container header-wrapper">
@@ -25,7 +25,7 @@ const Header = () => {
       {/* dropdown */}
 
       <div className="block ">
-        <MenuDropdown />
+        <MenuDropdown  user={user}/>
       </div>
       </div>
     </header>
