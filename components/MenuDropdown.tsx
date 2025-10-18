@@ -3,27 +3,25 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { signOut } from "@/lib/actions/auth.actions";
 import { LogOut } from "lucide-react";
 import NavItems from "./NavItems";
 
 const MenuDropdown = ({ user }: { user: User }) => {
   const router = useRouter();
-  const handleSignOut = () => {
+  const handleSignOut = async() => {
+
     // Sign out logic here
+
+    await signOut() 
     router.push("/sign-in");
   };
    return (

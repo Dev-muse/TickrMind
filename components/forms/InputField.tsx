@@ -22,15 +22,15 @@ const InputField = ({
         {label}
       </Label>
       <Input
-        {...register(name, validation)}
         type={type}
+        className={cn("form-inputs", {
+          "opacity-50 cursor-not-allowed": disabled,
+        })}
         id={name}
         placeholder={placeholder}
         disabled={disabled}
         value={value}
-        className={cn("form-inputs", {
-          "opacity-50 cursor-not-allowed": disabled,
-        })}
+        {...register(name, validation)}
       />
 
       {error && <p className="text-sm text-red-500">{error.message}</p> }

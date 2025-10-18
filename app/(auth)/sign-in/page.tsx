@@ -1,12 +1,15 @@
-'use client'
+"use client";
 
 import FooterLinks from "@/components/forms/FooterLinks";
 import InputField from "@/components/forms/InputField";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import { signInWithEmail } from "@/lib/actions/auth.actions";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
- 
+import { toast } from "sonner";
+
 const SignIn = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,12 +24,22 @@ const SignIn = () => {
 
   const onSubmit = async (data: SignInFormData) => {
     try {
+      // SignInWithEmail server action
+
+      const response = await signInWithEmail(data);
+      if (response.success) {
+        router.push("/");
+      }
+
       console.log("form data", data);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log("Sign in failed", e);
+      toast.error("Sign in failed", {
+        description:
+          e instanceof Error ? e.message : "failed to sign in",
+      });
     }
   };
-
   return (
     <div>
       <h1 className="form-title">Welcome back</h1>
@@ -40,7 +53,7 @@ const SignIn = () => {
           error={errors.email}
           validation={{
             required: "Email is required",
-            pattern: /^\w+@\w+\.\w+$/,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             message: "Email address is required",
           }}
         />
@@ -54,18 +67,20 @@ const SignIn = () => {
           error={errors.password}
           validation={{ required: "Password is required", minLength: 8 }}
         />
-            {/* button here  */}
+        {/* button here  */}
         <Button
           disabled={isSubmitting}
           type="submit"
           className="yellow-btn w-full mt-5 "
         >
-          {isSubmitting
-            ? "Signing in..."
-            : "Sign in"}
+          {isSubmitting ? "Signing in..." : "Sign in"}
         </Button>
       </form>
-      <FooterLinks text="Don't have an account? "href='/sign-up' linkText="Create an account" />
+      <FooterLinks
+        text="Don't have an account? "
+        href="/sign-up"
+        linkText="Create an account"
+      />
     </div>
   );
 };
