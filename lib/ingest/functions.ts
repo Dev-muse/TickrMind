@@ -56,8 +56,7 @@ export const sendSignUpEmail = inngest.createFunction(
           data: { email, name },
         } = event;
         await sendWelcomeEmail({ email, name, intro: introText });
-        console.log("Welcome email sent to:", email);
-      });
+       });
 
       return { success: true, message: "Welcome email sent successfully" };
     } catch (err) {
@@ -130,8 +129,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
 
         userNewsSummaries.push({ user, newsContent });
       } catch (e) {
-        console.log("Unable to summarize news for :", user.email);
-        userNewsSummaries.push({ user, newsContent: null });
+         userNewsSummaries.push({ user, newsContent: null });
       }
     }
     // step 4: Send emails
