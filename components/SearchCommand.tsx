@@ -35,7 +35,7 @@ export function SearchCommand({
   const [stocks, setStocks] =
     useState<StockWithWatchlistStatus[]>(initialStocks);
 
-  const isSearchMode = !!searchTerm.trim;
+  const isSearchMode = !!searchTerm.trim();
   const displayStocks = isSearchMode ? stocks : stocks.slice(0, 10);
 
   useEffect(() => {
