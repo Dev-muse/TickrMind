@@ -15,7 +15,7 @@ import { signOut } from "@/lib/actions/auth.actions";
 import { LogOut } from "lucide-react";
 import NavItems from "./NavItems";
 
-const MenuDropdown = ({ user }: { user: User }) => {
+const MenuDropdown = ({ user , initialStocks }: { user: User, initialStocks: StockWithWatchlistStatus[] }) => {
   const router = useRouter();
   const handleSignOut = async() => {
 
@@ -72,7 +72,7 @@ const MenuDropdown = ({ user }: { user: User }) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-gray-600 hidden smg:block " />
         <nav className="sm:hidden">
-          <NavItems />
+          <NavItems initialStocks={initialStocks} />
         </nav>
       </DropdownMenuContent>
     </DropdownMenu>
