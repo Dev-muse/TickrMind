@@ -31,10 +31,8 @@ const SignIn = () => {
         router.push("/");
       }
 
-      console.log("form data", data);
-    } catch (e) {
-      console.log("Sign in failed", e);
-      toast.error("Sign in failed", {
+     } catch (e) {
+       toast.error("Sign in failed", {
         description:
           e instanceof Error ? e.message : "failed to sign in",
       });

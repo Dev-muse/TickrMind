@@ -58,8 +58,7 @@ export function SearchCommand({
       const results = await searchStocks(searchTerm);
       setStocks(results);
     } catch (error) {
-      console.log(error);
-      setStocks([]);
+       setStocks([]);
     } finally {
       setLoading(false);
     }
