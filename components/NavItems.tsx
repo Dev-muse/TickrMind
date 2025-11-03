@@ -7,8 +7,7 @@ import SearchCommand from "./SearchCommand";
 
 const NavItems = ({initialStocks}:{initialStocks:StockWithWatchlistStatus[]}) => {
   const route = usePathname();
-  console.log(route);
-
+ 
   return (
     <ul className="flex flex-col sm:flex-row p-2 gap-3 sm:gap-10 font-medium">
       {NAV_ITEMS.map((item) => {

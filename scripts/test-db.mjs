@@ -16,8 +16,7 @@ async function main() {
     const dbName = mongoose.connection?.name || '(unknown)';
     const host = mongoose.connection?.host || '(unknown)';
 
-    console.log(`OK: Connected to MongoDB [db="${dbName}", host="${host}", time=${elapsed}ms]`);
-    await mongoose.connection.close();
+     await mongoose.connection.close();
     process.exit(0);
   } catch (err) {
     console.error('ERROR: Database connection failed');

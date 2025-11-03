@@ -45,10 +45,8 @@ const SignUp = () => {
         router.push('/')
       }
       
-      console.log("form data", data);
-    } catch (e) {
-      console.log('Sign up failed',e);
-     toast.error('Sign up failed',{
+     } catch (e) {
+      toast.error('Sign up failed',{
        description: e instanceof Error ? e.message : 'failed to create account'
      
      })
